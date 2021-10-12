@@ -8,15 +8,19 @@
 <title>글쓰기</title>
 </head>
 <body>
-<%-- <section>
+<section>
 <c:if test="${sessionScope.user==null }">
-	<script type="text/javascript">
-		alert('글쓰기는 로그인을 해야합니다.');
+	<!-- <script type="text/javascript">
+		alert('로그인을 해주세요.');
 		location.href='login.do';
-	</script>
-</c:if> --%>
+	</script> -->
+</c:if>
 <form name="frm1" method="post" action="save.do">
+<!-- <form action="upload.jsp" method="post" enctype="multipart/form-data"> -->
+											<!-- ㄴ 파일 자체를 전송하기 위해 사용 -->
+	<input type="file" name="file" size="50">	
 <table>
+
 	<tr>
 		<th>제목</th>
 		<td><input type="text" name="subject" size="50" required></td>
@@ -35,13 +39,10 @@
 	<input type="submit" value="등록" class="btn">
 	<input type="reset" value="초기화" class="btn">
 	</td></tr>
-	<form action="upload.jsp" method="post" enctype="multipart/form-data">   <!--  -->
-												<!-- ㄴ 파일 자체를 전송하기 위해 사용 -->
-	<input type="file" name="file" size="50">
-
+	
 </table>
-</form>
-</form>
+</form> 
+<!-- </form> -->
 </section>
 </body>
 </html>

@@ -21,12 +21,11 @@ public class DetailAction implements Action{
 		int idx = Integer.parseInt(request.getParameter("idx"));
 		String categoryIdx = request.getParameter("categoryIdx");
 		
-		KkakdugiMarketDao dao = KkakdugiMarketDao.getInstance();
+//		pageContext.forward("detailView.jsp");
+		ActionForward forward = new ActionForward();
+		forward.isRedirect = false;
+		forward.url="community/detail.jsp";
+		return forward;
 		
-		
-		
-		
-		
-		return null;
 	}
 }

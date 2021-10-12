@@ -10,7 +10,9 @@ import dao.KkakdugiMarketDao;
 import dto.KkakdugiMarket;
 
 public class WriteAction implements Action  {
-
+	public WriteAction() {
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -26,14 +28,13 @@ public class WriteAction implements Action  {
 		dto.setCategoryIdx(categoryIdx);
 		dto.setUserId(userId);
 		dto.setContent(content);
-		KkakdugiMarketDao dao = KkakdugiMarketDao.getInstance();
 		
+		KkakdugiMarketDao dao = KkakdugiMarketDao.getInstance();
+		dao.insert(dto);
 		ActionForward forward = new ActionForward();
 		forward.isRedirect = false;
 		forward.url="write.jsp";
 		return forward;
-	};
-	
-	
-	
+	}
+		
 }

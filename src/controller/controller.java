@@ -30,8 +30,6 @@ public class controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 	
-	//요청Method 구별없이 실행 -> doGet() 또는 doPost()메소드 실행내용 있으면 실행.
-	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//콘솔 출력- 테스트용
 	//	System.out.println(request.getContextPath());
@@ -39,23 +37,22 @@ public class controller extends HttpServlet {
 		ActionForward forward=null; 
 		String spath = request.getServletPath();
 		String path="index.jsp";
-		String url ="./";   //또는 request.getContextPath();
+		String url ="./";
+		
 		
 		if(spath.equals("/list.do")) {
 			Action action = new ListAction();
 			forward = action.execute(request, response);      //여기에 들어갈 코드가 많습니다.-> Action 구현 클래스로 변경.
 			forward.setUrl("community/list.jsp");
 		}else if(spath.equals("/write.do")) {
-			path ="community/write.jsp";
-			forward = new ActionForward(false,path); 
+			path ="community/insert.jsp";
+			forward = new ActionForward(false,path);  
 		}else if(spath.equals("/detail.do")) {
 			Action action = new DetailAction();
 			forward = action.execute(request, response);
 		}else if(spath.equals("/save.do")) {
 			Action action = new WriteAction();
 			forward = action.execute(request, response);
-			url = "list.do";
-			forward.setUrl(url);
 		
 		//이 시점에서 forward 에 isRedirect 와 url 값이 저장되었으면 ok!
 		if(forward.isRedirect()) {   //타입 boolean 일때는 getXXX 아니고 isXXX 입니다.

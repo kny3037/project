@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+
 import dto.KkakdugiMarket;
 import mybatis.SqlSessionBean;
 
@@ -34,6 +35,13 @@ public class KkakdugiMarketDao {
 		mapper.close();
 		return list;
 	}
-		
+	//insert문 추가
+	public void insert(KkakdugiMarket dto) {
+		SqlSession mapper = factory.openSession();
+		mapper.insert("writing.insert",dto);
+		mapper.commit();
+		mapper.close();
+	}
+	
 		
 }
