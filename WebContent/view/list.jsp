@@ -44,7 +44,6 @@
 	
 	<c:if test="${pageDto.endPage !=pageDto.totalPage }">
 		<a class="pagenum" href="?page=${pageDto.endPage+1}">&gt;</a>
-	 
 		<a class="pagenum" href="?page=${pageDto.totalPage }">&gt;&gt;</a> <!-- 마지막페이지 --> 
 	</c:if>
 </div>

@@ -31,9 +31,10 @@ public class WriteAction implements Action  {
 		
 		KkakdugiMarketDao dao = KkakdugiMarketDao.getInstance();
 		dao.insert(dto);
+		boolean isRedirect = true;
 		ActionForward forward = new ActionForward();
-		forward.isRedirect = false;
-		forward.url="write.jsp";
+		forward.isRedirect = true;
+		forward.url="list.do";
 		return forward;
 	}
 		

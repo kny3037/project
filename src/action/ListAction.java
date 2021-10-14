@@ -34,6 +34,8 @@ public class ListAction implements Action{
 		map.put("startNo", pdto.getStartNo());
 		List<KkakdugiMarket> list = dao.getList(map);
 		
+		request.setAttribute("pageDto", pdto);     
+		request.setAttribute("list", list);
 		ActionForward forward = new ActionForward();
 		forward.isRedirect = false;
 		forward.url = "list.jsp";

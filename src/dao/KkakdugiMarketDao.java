@@ -35,6 +35,13 @@ public class KkakdugiMarketDao {
 		mapper.close();
 		return list;
 	}
+	//1개 행 조회
+		public KkakdugiMarket getOne(int idx) {
+			SqlSession mapper = factory.openSession();
+			KkakdugiMarket dto = mapper.selectOne("selectByIdx", idx);
+			mapper.close();
+			return dto;
+		}
 	//insert문 추가
 	public void insert(KkakdugiMarket dto) {
 		SqlSession mapper = factory.openSession();
@@ -42,6 +49,12 @@ public class KkakdugiMarketDao {
 		mapper.commit();
 		mapper.close();
 	}
-	
+	//조회수
+		public void readCount(int idx) {
+			SqlSession mapper = factory.openSession();
+			mapper.update("readCount",idx);
+			mapper.commit();
+			mapper.close();
+		}
 		
 }

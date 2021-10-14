@@ -15,23 +15,35 @@
 		location.href='login.do';
 	</script> -->
 </c:if>
-<form name="frm1" method="post" action="save.do">
-<!-- <form action="upload.jsp" method="post" enctype="multipart/form-data"> -->
+<h3>글 쓰기</h3>
+<hr>
+<form name="frm1" method="post" action="save.do" enctype="multipart/form-data">
 											<!-- ㄴ 파일 자체를 전송하기 위해 사용 -->
-	<input type="file" name="file" size="50">	
+<!-- <form action="upload.jsp" method="post" enctype="multipart/form-data"> -->
+	
 <table>
+	
+	<tr>
+		<td><input type="file" name="file" size="50"></td>
+	</tr>
+	
+	<tr>
+		<td><select name="Category" id="category">
+			<option>주방/가전</option>
+			<option>IT/전자</option>
+			<option>패션/의류</option>
+			<option>세면/욕실</option>
+			<option>기타</option>
+		</select> </td>
+	</tr>
+	
+	<tr>
+		<td><input type="text" name="subject" size="58" placeholder="제목" required></td>
+	</tr>
+	
+	<tr>
 
-	<tr>
-		<th>제목</th>
-		<td><input type="text" name="subject" size="50" required></td>
-	</tr>
-	<tr>
-		<th>작성자</th>
-		<td><input type="text" name="userId" size="50" readonly value="${sessionScope.user }"></td>	
-	</tr>
-	<tr>
-		<th>내용</th>
-		<td><textarea rows="20" cols="60" name="content" required ></textarea></td>
+		<td><textarea rows="20" cols="60" name="content" placeholder="작성하실 내용을 입력해주세요." required ></textarea></td>
 	</tr>
 	
 	<tr><td>
