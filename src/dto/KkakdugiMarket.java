@@ -1,5 +1,7 @@
 package dto;
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +17,7 @@ public class KkakdugiMarket {
 	private String userId;
 	private String subject;
 	private String content;
-	
+	private String readCount;
+	private short commentCount;
+	private Timestamp wdate;
 }

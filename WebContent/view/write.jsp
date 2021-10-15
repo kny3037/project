@@ -9,23 +9,17 @@
 </head>
 <body>
 <section>
-<c:if test="${sessionScope.user==null }">
-	<!-- <script type="text/javascript">
+<%-- <c:if test="${sessionScope.userId==null }">
+	<script type="text/javascript">
 		alert('로그인을 해주세요.');
 		location.href='login.do';
-	</script> -->
-</c:if>
+	</script> 
+</c:if> --%>
 <h3>글 쓰기</h3>
 <hr>
-<form name="frm1" method="post" action="save.do" enctype="multipart/form-data">
-											<!-- ㄴ 파일 자체를 전송하기 위해 사용 -->
-<!-- <form action="upload.jsp" method="post" enctype="multipart/form-data"> -->
-	
+<form name="frm1" method="post" action="save.do" enctype="multipart/form-data" >
+												<!-- action="write_save.jsp"  -->
 <table>
-	
-	<tr>
-		<td><input type="file" name="file" size="50"></td>
-	</tr>
 	
 	<tr>
 		<td><select name="Category" id="category">
@@ -38,11 +32,18 @@
 	</tr>
 	
 	<tr>
+		<td><input type="file" name="fileName" size="50"></td>				
+	</tr>
+	
+	<tr>
 		<td><input type="text" name="subject" size="58" placeholder="제목" required></td>
 	</tr>
 	
 	<tr>
-
+ 		<td><input type="text" name="name" size="58" readonly value="${sessionScope.userId}" placeholder="작성자"></td>
+ 	</tr>
+	
+	<tr>
 		<td><textarea rows="20" cols="60" name="content" placeholder="작성하실 내용을 입력해주세요." required ></textarea></td>
 	</tr>
 	
@@ -54,7 +55,6 @@
 	
 </table>
 </form> 
-<!-- </form> -->
 </section>
 </body>
 </html>

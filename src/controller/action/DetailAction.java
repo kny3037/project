@@ -1,4 +1,4 @@
-package action;
+package controller.action;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,11 +23,11 @@ public class DetailAction implements Action{
 		HttpSession session = request.getSession();
 		//글 상세
 		int idx = Integer.parseInt(request.getParameter("idx"));
-		String categoryIdx = request.getParameter("categoryIdx");
+		int pageNo = Integer.parseInt(request.getParameter("page"));
 		
 		KkakdugiMarketDao dao = KkakdugiMarketDao.getInstance();
-		if(session.getAttribute("Idx")!=null) {
-			StringBuilder Idx = (StringBuilder)session.getAttribute("Idx");
+		if(session.getAttribute("readIdx")!=null) {
+			StringBuilder Idx = (StringBuilder)session.getAttribute("readIdx");
 			boolean status = Idx.toString().contains("/"+idx+"/");
 			if(!status) {
 				dao.readCount(idx);
@@ -43,9 +43,9 @@ public class DetailAction implements Action{
 		cdao.updateCountAll(idx);
 		List<Comment> cmts = cdao.getList(idx);
 		request.setAttribute("cmtlist", cmts);
+		request.setAttribute("page", pageNo);
 		
-		
-//		pageContext.forward("detailView.jsp");
+		request.setAttribute("bean", bean);
 		ActionForward forward = new ActionForward();
 		forward.isRedirect = false;
 		forward.url="community/detail.jsp";

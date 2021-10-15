@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.action.Action;
+import controller.action.ActionForward;
+import controller.action.DetailAction;
+import controller.action.ListAction;
+import controller.action.WriteAction;
 
-import action.Action;
-import action.ActionForward;
-import action.DetailAction;
-import action.ListAction;
-import action.WriteAction;
 
 
 @WebServlet("*.do")

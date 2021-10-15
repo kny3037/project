@@ -8,6 +8,10 @@
 <title>list</title>
 </head>
 <body>
+<section>
+<h3>동아리 커뮤니티</h3>
+<hr>
+<div style="margin:auto;">
 <ul id="main">
 	<li>
 		<ul class="row">

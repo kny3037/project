@@ -1,4 +1,4 @@
-package action;
+package controller.action;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
