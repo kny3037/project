@@ -9,8 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.KkakdugiMarketDao;
-import dto.KkakdugiMarket;
+import dao.WritingDao;
+import dto.Writing;
 import dto.PageDto;
 
 public class ListAction implements Action{
@@ -19,7 +19,7 @@ public class ListAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		KkakdugiMarketDao dao = KkakdugiMarketDao.getInstance();
+		WritingDao dao = WritingDao.getInstance();
 		
 		int pageNo;
 		if(request.getParameter("page")==null) pageNo=1;
@@ -32,7 +32,7 @@ public class ListAction implements Action{
 		Map<String, Integer> map = new HashMap<>();
 		map.put("pageSize", pageSize);
 		map.put("startNo", pdto.getStartNo());
-		List<KkakdugiMarket> list = dao.getList(map);
+		List<Writing> list = dao.getList(map);
 		
 		request.setAttribute("pageDto", pdto);     
 		request.setAttribute("list", list);

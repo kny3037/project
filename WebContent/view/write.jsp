@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>글쓰기</title>
 </head>
+<link rel="stylesheet" href="css/write.css?v=3">
 <body>
 <section>
 
@@ -17,45 +18,46 @@
 	</script>  
 </c:if> --%> 
 
+
 <h3>글 쓰기</h3>
 <hr>
 <form name="frm1" method="post" action="save.do" enctype="multipart/form-data" >
-												<!-- action="write_save.jsp"  -->
-<table>
+												
+<div id="all">
 	
-	<tr>
-		<td><select name="Category" id="category">
+	<div id="category">
+		<select name="Category" id="Category" >
 			<option value="주방/가전">주방/가전</option>
 			<option value="IT/전자">IT/전자</option>
 			<option value="패션/의류">패션/의류</option>
 			<option value="세면/욕실">세면/욕실</option>
-			<option value="기타">기타</option>
-		</select> </td>
-	</tr>
+			<option value="기타" selected>기타</option>
+		</select> 
+	</div>
+ 
+	<div id="subject">
+		<input id="subject" type="text" name="subject" size="58" placeholder="제목" required>
+	</div>
 	
-	<tr>
-		<td><input type="file" name="fileName" size="50" accept="image/*" ></td>				
-	</tr>
+	<div id="userId">
+ 		<input id="userId" type="text" name="userId" size="58" readonly value="${sessionScope.userId}" placeholder="작성자">
+	</div>
 	
-	<tr>
-		<td><input type="text" name="subject" size="58" placeholder="제목" required></td>
-	</tr>
+	<div id="content">
+		<textarea id="content" rows="20" cols="60" name="content" placeholder="작성하실 내용을 입력해주세요." required ></textarea>
+	</div>
 	
-	<tr>
- 		<td><input type="text" name="name" size="58" readonly value="${sessionScope.userId}" placeholder="작성자"></td>
- 	</tr>
+	<div id="fileName">
+		<input type="file" name="fileName" size="50" accept="image/*">
+	</div>
 	
-	<tr>
-		<td><textarea rows="20" cols="60" name="content" placeholder="작성하실 내용을 입력해주세요." required ></textarea></td>
-	</tr>
-	
-	<tr><td>
-	<tr><td colspan="2" align="center">
-	<input type="submit" value="등록" class="btn">
-	<input type="reset" value="초기화" class="btn">
-	</td></tr>
-	
-</table>
+	<div>
+		<input type="submit" value="등록" class="btn">
+		<input type="reset" value="초기화" class="btn2">
+	</div>
+
+
+</div>
 </form> 
 </section>
 </body>

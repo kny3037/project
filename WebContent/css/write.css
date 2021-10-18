@@ -1,0 +1,34 @@
+@charset "UTF-8";
+#all{
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.btn{
+	float: left;
+}
+#Category{
+	border-left: 0px;
+	border-right: 0px;
+	font-size: 1.3em;
+	font-family: noto sans;
+	width: 25%;
+}
+#subject{
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	font-size: 1.1em;
+}
+#userId{
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	font-size: 1.1em;
+}
+#content{
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	font-size: 1.1em;
+}

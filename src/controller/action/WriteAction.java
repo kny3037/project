@@ -10,9 +10,9 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.GalleryDao;
-import dao.KkakdugiMarketDao;
+import dao.WritingDao;
 import dto.Gallery;
-import dto.KkakdugiMarket;
+import dto.Writing;
 
 public class WriteAction implements Action  {
 	
@@ -23,10 +23,10 @@ public class WriteAction implements Action  {
 		request.setCharacterEncoding("UTF-8");
 		String subject = request.getParameter("subject");
 		String categoryIdx = request.getParameter("Category");
-		String userId = request.getParameter("name");
+		String userId = request.getParameter("userId");
 		String content = request.getParameter("content");
 		
-		KkakdugiMarket dto = new KkakdugiMarket();
+		Writing dto = new Writing();
 		dto.setSubject(subject);
 		dto.setCategoryIdx(categoryIdx);
 		dto.setUserId(userId);
@@ -53,7 +53,7 @@ public class WriteAction implements Action  {
 		}
 		
 		
-		KkakdugiMarketDao dao = KkakdugiMarketDao.getInstance();
+		WritingDao dao = WritingDao.getInstance();
 		dao.insert(dto);
 		boolean isRedirect = true;
 		ActionForward forward = new ActionForward();
