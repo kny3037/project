@@ -94,7 +94,7 @@
 				</c:forEach>
 			</ul>
 		</form>
-
+</div>
 	<!-- 댓글 작성자만 수정, 삭제가 가능하도록 -->
 	<c:if test="${cmt.userId == sessionScope.userId}">
 		<a href="#">수정</a>

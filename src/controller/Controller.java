@@ -44,20 +44,20 @@ public class Controller extends HttpServlet {
 			Action action = new ListAction();
 			forward = action.execute(request, response);      
 			forward.setUrl("view/list.jsp");
-		}else if(spath.equals("/write.do")) {
-			path ="view/write.jsp";
-			forward = new ActionForward(false,path);  
 		}else if(spath.equals("/detail.do")) {
 			Action action = new DetailAction();
 			forward = action.execute(request, response);
+		}else if(spath.equals("/write.do")) {
+			path ="view/write.jsp";
+			forward = new ActionForward(false,path);  
 		}else if(spath.equals("/save.do")) {
 			Action action = new WriteAction();
 			forward = action.execute(request, response);
-			url = "list.do";
+			url = "./";
 			forward.setUrl(url);
 		}
-		//이 시점에서 forward 에 isRedirect 와 url 값이 저장되었으면 ok!
-		if(forward.isRedirect()) {   //타입 boolean 일때는 getXXX 아니고 isXXX 입니다.
+		
+		if(forward.isRedirect()) {   
 			response.sendRedirect(forward.getUrl());
 		}else {
 			RequestDispatcher rd 

@@ -4,22 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- sql mapper   -->  
 <mapper namespace="comment" >
-	<insert id="insert" parameterType="Comment">
+	<!-- <insert id="insert" parameterType="Comment">
 		insert into comment (writingIdx,userId,content)
 		values(#{writingIdx},#{userId},#{content})
-	</insert>
+	</insert> -->
 	
-	<select id="getComments" parameterType="int" resultType="Comment">
-	select * from comment where writingIdx =#{writingIdx}
+	<!-- <select id="getComments" parameterType="int" resultType="Comment">
+		select * from comment where writingIdx =#{writingIdx}
 	</select>
 	
 	<delete id="delete" parameterType="int">
 		delete from comment where idx = #{idx}
-	</delete>
+	</delete> -->
 
-	<insert id="insert" parameterType="Freeboard">
+	<insert id="insert" parameterType="KkakdugiMarket">
 		insert into writing (categoryIdx,userId,subject,content)
 		values(#{categoryIdx},#{userId},#{subject},#{content})
+	</insert>
+	
+	<insert id="gallery" parameterType="Gallery">
+		insert into gallery (title,filename) values(#{title},#{filename})
 	</insert>
 
 </mapper>

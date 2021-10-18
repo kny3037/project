@@ -29,7 +29,7 @@ public class GalleryDao {
 			
 		public void insert(Gallery g) {
 			SqlSession mapper = factory.openSession();
-			mapper.insert("gallery.insert",g);
+			mapper.insert("comment.gallery",g);
 			mapper.commit();
 			mapper.close();
 		}

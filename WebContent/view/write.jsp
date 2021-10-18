@@ -9,12 +9,14 @@
 </head>
 <body>
 <section>
-<%-- <c:if test="${sessionScope.userId==null }">
-	<script type="text/javascript">
+
+ <%-- <c:if test="${sessionScope.userId==null }">
+	 <script type="text/javascript">
 		alert('로그인을 해주세요.');
 		location.href='login.do';
-	</script> 
-</c:if> --%>
+	</script>  
+</c:if> --%> 
+
 <h3>글 쓰기</h3>
 <hr>
 <form name="frm1" method="post" action="save.do" enctype="multipart/form-data" >
@@ -23,16 +25,16 @@
 	
 	<tr>
 		<td><select name="Category" id="category">
-			<option>주방/가전</option>
-			<option>IT/전자</option>
-			<option>패션/의류</option>
-			<option>세면/욕실</option>
-			<option>기타</option>
+			<option value="주방/가전">주방/가전</option>
+			<option value="IT/전자">IT/전자</option>
+			<option value="패션/의류">패션/의류</option>
+			<option value="세면/욕실">세면/욕실</option>
+			<option value="기타">기타</option>
 		</select> </td>
 	</tr>
 	
 	<tr>
-		<td><input type="file" name="fileName" size="50"></td>				
+		<td><input type="file" name="fileName" size="50" accept="image/*" ></td>				
 	</tr>
 	
 	<tr>

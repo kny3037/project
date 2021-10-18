@@ -45,7 +45,7 @@ public class KkakdugiMarketDao {
 	//insert문 추가
 	public void insert(KkakdugiMarket dto) {
 		SqlSession mapper = factory.openSession();
-		mapper.insert("writing.insert",dto);
+		mapper.insert("comment.insert",dto);
 		mapper.commit();
 		mapper.close();
 	}

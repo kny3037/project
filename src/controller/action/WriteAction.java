@@ -2,7 +2,6 @@ package controller.action;
 
 import java.io.IOException;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +11,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.GalleryDao;
 import dao.KkakdugiMarketDao;
+import dto.Gallery;
 import dto.KkakdugiMarket;
 
 public class WriteAction implements Action  {
@@ -22,8 +22,8 @@ public class WriteAction implements Action  {
 		
 		request.setCharacterEncoding("UTF-8");
 		String subject = request.getParameter("subject");
-		String categoryIdx = request.getParameter("categoryIdx");
-		String userId = request.getParameter("userId");
+		String categoryIdx = request.getParameter("Category");
+		String userId = request.getParameter("name");
 		String content = request.getParameter("content");
 		
 		KkakdugiMarket dto = new KkakdugiMarket();
@@ -41,13 +41,15 @@ public class WriteAction implements Action  {
 			MultipartRequest muti = new MultipartRequest
 					(request, path, size, "UTF-8", new DefaultFileRenamePolicy());
 			
-			String title = muti.getParameter("title");
-			String filename = muti.getFilesystemName("pic");
+			String title = "test";
+			String filename = muti.getFilesystemName("fileName");
 			
+			Gallery gdto = new Gallery(0,title, filename);
 			
+			gdao.insert(gdto);
 			
 		}catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e.getMessage());
 		}
 		
 		
