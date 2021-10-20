@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import controller.action.Action;
 import controller.action.ActionForward;
 import controller.action.DetailAction;
-import controller.action.ListAction;
 import controller.action.WriteAction;
 
 
@@ -38,12 +37,12 @@ public class Controller extends HttpServlet {
 		String spath = request.getServletPath();
 		String path="index.jsp";
 		String url ="./";
-	System.out.println(spath);
+//	System.out.println(spath);
 		
 		if(spath.equals("/list.do")) {
-			Action action = new ListAction();
-			forward = action.execute(request, response);      
-			forward.setUrl("view/list.jsp");
+//			Action action = new ListAction();
+//			forward = action.execute(request, response);      
+//			forward.setUrl("view/list.jsp");
 		}else if(spath.equals("/detail.do")) {
 			Action action = new DetailAction();
 			forward = action.execute(request, response);

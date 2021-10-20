@@ -18,7 +18,6 @@
 	</script>  
 </c:if> --%> 
 
-
 <h3>글 쓰기</h3>
 <hr>
 <form name="frm1" method="post" action="save.do" enctype="multipart/form-data" >
@@ -26,39 +25,57 @@
 <div id="all">
 	
 	<div id="category">
-		<select name="Category" id="Category" >
+		<select name="Category" id="Category">
 			<option value="주방/가전">주방/가전</option>
 			<option value="IT/전자">IT/전자</option>
 			<option value="패션/의류">패션/의류</option>
 			<option value="세면/욕실">세면/욕실</option>
 			<option value="기타" selected>기타</option>
-		</select> 
+		</select>
+		 <br>
+		<span id="category_etc">
+		<input type="text" id="category_etc" name="category_etc" disabled="disabled" placeholder="원하시는 분류 항목을 입력해주세요.">
+		</span> 
 	</div>
  
-	<div id="subject">
-		<input id="subject" type="text" name="subject" size="58" placeholder="제목" required>
+	<div class="subject_c">
+		<input id="subject" type="text" name="subject" placeholder="제목" required>
 	</div>
 	
-	<div id="userId">
- 		<input id="userId" type="text" name="userId" size="58" readonly value="${sessionScope.userId}" placeholder="작성자">
+	<div class="userId_c">
+ 		<input id="userId" type="text" name="userId" readonly value="${sessionScope.userId}" placeholder="작성자">
 	</div>
 	
-	<div id="content">
-		<textarea id="content" rows="20" cols="60" name="content" placeholder="작성하실 내용을 입력해주세요." required ></textarea>
+	<div class="content_c">
+		<textarea id="content" rows="20" name="content" placeholder="작성하실 내용을 입력해주세요." required ></textarea>
 	</div>
 	
-	<div id="fileName">
-		<input type="file" name="fileName" size="50" accept="image/*">
+	<div class="fileName_c">
+		<input type="file" name="fileName" accept="image/*">
 	</div>
 	
-	<div>
+	<div class="button">
 		<input type="submit" value="등록" class="btn">
 		<input type="reset" value="초기화" class="btn2">
 	</div>
 
 
+
+
 </div>
 </form> 
+<script type="text/javascript">
+	document.getElementById("Category").addEventListener("change",function(){
+		if(this.value=="기타"){
+			document.getElementById("category_etc").style.display="inline-block";   //화면에 보임
+			document.frmReg.category_etc.disabled=false;
+		}else {
+			document.getElementById("category_etc").style.display="none";   //화면에 안보임
+			document.frmReg.category_etc.disabled=true;
+		}
+		
+	});
+	</script>
 </section>
 </body>
 </html>

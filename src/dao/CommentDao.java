@@ -1,12 +1,11 @@
 package dao;
-
+import dto.Comment;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import dto.Comment;
 import mybatis.SqlSessionBean;
 
 public class CommentDao {
@@ -15,8 +14,8 @@ public class CommentDao {
 	private static CommentDao dao = new CommentDao();
 	
 	private CommentDao() { }
-		public static CommentDao getInstance() {
-			return dao;
+	public static CommentDao getInstance() {
+		return dao;
 	}
 	//getList
 	public List<Comment> getList(int idx){   
@@ -27,18 +26,67 @@ public class CommentDao {
 		mapper.close();
 		return list;
 	}
+	
+	public List<Comment> selectById(String userId) {
+		List<Comment> list = null;
+		SqlSession mapper = factory.openSession();
+		list = mapper.selectList("comment.selectById",userId);
+		mapper.close();
+		return list;
+	}
+	
+	//idx로 한개 행 조회
+	public Comment getOne(int idx) {
+		SqlSession mapper = factory.openSession();
+		Comment dto = mapper.selectOne("selectByIdx", idx);  
+		mapper.close();
+		return dto;
+	}
+	
+	//테이블 데이터 행의 개수 조회
+	public int getCount() {
+		SqlSession mapper = factory.openSession();
+		int cnt = mapper.selectOne("getCount");  
+		mapper.close();     
+		return cnt;
+	}
+	
 	public void insert(Comment dto) {
 		SqlSession mapper = factory.openSession();
-		mapper.insert("comment.insert",dto);   //mapper xml 파일의 네임스페이스.id로 첫번째 인자 값.   
+		mapper.insert("freeboard.insert",dto);
 		mapper.commit();
 		mapper.close();
 	}
-	public void delete(int idx) {
+	
+	public void update(Comment dto) {
 		SqlSession mapper = factory.openSession();
-		mapper.delete("comment.delete",idx);
+		mapper.update("update",dto);
 		mapper.commit();
 		mapper.close();
 	}
+	
+	public int delete(Map<String,Object> map) {
+		SqlSession mapper = factory.openSession();
+		int n = mapper.delete("freeboard.delete",map);
+		mapper.commit();
+		mapper.close();
+		return n;
+	}
+	
+	public Comment passwordCheck(Map<String,Object> map) {
+		SqlSession mapper = factory.openSession();
+		Comment dto = mapper.selectOne("passwordCheck", map);
+		mapper.close();
+		return dto;
+	}
+	
+	public void readCount(int idx) {
+		SqlSession mapper =factory.openSession();
+		mapper.update("readCount", idx);
+		mapper.commit();
+		mapper.close();
+	}
+	
 	public void updateCommentCnt(int idx) {
 		SqlSession mapper = factory.openSession();
 		mapper.update("updateCommentCnt",idx);
@@ -51,4 +99,5 @@ public class CommentDao {
 		mapper.commit();
 		mapper.close();
 	}
+	
 }

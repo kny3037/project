@@ -14,6 +14,7 @@ public class Writing {
 
 	private int idx;
 	private String categoryIdx;
+	private String name;
 	private String userId;
 	private String subject;
 	private String content;
