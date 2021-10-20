@@ -1,6 +1,7 @@
 package controller.action;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,11 +39,13 @@ public class WriteAction implements Action  {
 		int size=5*1024*1024;
 		
 		try {
-			MultipartRequest muti = new MultipartRequest
+			MultipartRequest multi = new MultipartRequest
 					(request, path, size, "UTF-8", new DefaultFileRenamePolicy());
 			
+			Enumeration params=multi.getFileNames();
+			
 			String title = "test";
-			String filename = muti.getFilesystemName("fileName");
+			String filename = multi.getFilesystemName("fileName");
 			
 			Gallery gdto = new Gallery(0,title, filename);
 			
@@ -51,7 +54,7 @@ public class WriteAction implements Action  {
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+		 
 		
 		WritingDao dao = WritingDao.getInstance();
 		dao.insert(dto);
