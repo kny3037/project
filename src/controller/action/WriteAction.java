@@ -1,68 +1,31 @@
 package controller.action;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+public class WriteAction implements Action {
 
-import dao.GalleryDao;
-import dao.WritingDao;
-import dto.Gallery;
-import dto.Writing;
-
-public class WriteAction implements Action  {
-	
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
-		String subject = request.getParameter("subject");
-		String categoryIdx = request.getParameter("Category");
-		String userId = request.getParameter("userId");
-		String content = request.getParameter("content");
+		HttpSession session = request.getSession();
+		Object user = session.getAttribute("user");
 		
-		Writing dto = new Writing();
-		dto.setSubject(subject);
-		dto.setCategoryIdx(categoryIdx);
-		dto.setUserId(userId);
-		dto.setContent(content);
-		
-		GalleryDao gdao = GalleryDao.getInstance();
-		String path="c:\\upload";
-		
-		int size=5*1024*1024;
-		
-		try {
-			MultipartRequest multi = new MultipartRequest
-					(request, path, size, "UTF-8", new DefaultFileRenamePolicy());
-			
-			Enumeration params=multi.getFileNames();
-			
-			String title = "test";
-			String filename = multi.getFilesystemName("fileName");
-			
-			Gallery gdto = new Gallery(0,title, filename);
-			
-			gdao.insert(gdto);
-			
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
+		// user session이 없을 때,(로그인 되어있지 않을 때,) 경고 리턴
+		if(user == null) {
+			request.setAttribute("message", "로그인 후 이용 가능 합니다.");
+			request.setAttribute("url", "index.do");
+			return new ActionForward(false, "error/alert.jsp");
 		}
-		 
 		
-		WritingDao dao = WritingDao.getInstance();
-		dao.insert(dto);
-		boolean isRedirect = true;
 		ActionForward forward = new ActionForward();
-		forward.isRedirect = true;
-		forward.url="list.do";
+		forward.setUrl("view/write.jsp");
 		return forward;
 	}
-		
+
 }

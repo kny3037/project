@@ -4,13 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class ActionForward {
-
-	boolean isRedirect=false;
+	boolean isRedirect = false;
 	String url;
-	
 }

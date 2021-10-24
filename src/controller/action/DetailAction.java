@@ -26,8 +26,8 @@ public class DetailAction implements Action{
 		int pageNo = Integer.parseInt(request.getParameter("page"));
 		
 		WritingDao dao = WritingDao.getInstance();
-		if(session.getAttribute("readIdx")!=null) {
-			StringBuilder Idx = (StringBuilder)session.getAttribute("readIdx");
+		if(session.getAttribute("readCount")!=null) {
+			StringBuilder Idx = (StringBuilder)session.getAttribute("readCount");
 			boolean status = Idx.toString().contains("/"+idx+"/");
 			if(!status) {
 				dao.readCount(idx);
@@ -37,7 +37,7 @@ public class DetailAction implements Action{
 				StringBuilder Idx = new StringBuilder("/");
 				session.setAttribute("Idx", Idx);
 			}
-		Writing bean = dao.getOne(idx);
+		Writing bean = dao.selectByIdx(idx);
 		
 		CommentDao cdao = CommentDao.getInstance();
 		cdao.updateCountAll(idx);
@@ -48,7 +48,7 @@ public class DetailAction implements Action{
 		request.setAttribute("bean", bean);
 		ActionForward forward = new ActionForward();
 		forward.isRedirect = false;
-		forward.url="community/detail.jsp";
+		forward.setUrl("view/detail.jsp");
 		return forward;
 		
 	}

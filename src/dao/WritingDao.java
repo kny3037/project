@@ -46,10 +46,10 @@ public class WritingDao {
 	}
 	
 	// 카테고리 번호인자로 해당 카테고리의 글의 리스트를 가져오는 메소드 => 내 전문분야의 글을 가져올 때 사용
-	public List<Writing> selectByCategoryIdx(String idx) {
+	public List<Writing> selectByCategoryIdx(Map<String, Object> map) {
 		List<Writing> list = null;
 		SqlSession mapper = factory.openSession();
-		list = mapper.selectList("writing.selectByCategoryIdx", idx);
+		list = mapper.selectList("writing.selectByCategoryIdx", map);
 		mapper.close();
 		return list;
 	}
@@ -81,6 +81,14 @@ public class WritingDao {
 		return list;
 	}
 	
+	// 글 내용을 인자로 글 목록 리턴
+		public int getCount() {
+			SqlSession mapper = factory.openSession();
+			int result = mapper.selectOne("writing.getCount");
+			mapper.close();
+			return result ;
+		}
+	
 	//조회수
 	public void readCount(int idx) {
 		SqlSession mapper = factory.openSession();
@@ -89,21 +97,15 @@ public class WritingDao {
 		mapper.close();
 	}
 	
-	//getList
-	public List<Writing> getList(Map<String, Integer>map){
-		List<Writing> list = null;
+	//글 삭제
+	public int delete(Map<String,Object> map) {
 		SqlSession mapper = factory.openSession();
-		list = mapper.selectList("getList",map);
+		int n = mapper.delete("write.delete",map);
+		mapper.commit();
 		mapper.close();
-		return list;
+		return n;
 	}
-	//1개 행 조회
-	public Writing getOne(int idx) {
-		SqlSession mapper = factory.openSession();
-		Writing dto = mapper.selectOne("selectByIdx", idx);
-		mapper.close();
-		return dto;
-	}
+
 	
 	
 }

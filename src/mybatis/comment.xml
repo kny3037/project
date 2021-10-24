@@ -4,26 +4,34 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- sql mapper   -->  
 <mapper namespace="comment" >
-	<!-- <insert id="insert" parameterType="Comment">
-		insert into comment (writingIdx,userId,content)
-		values(#{writingIdx},#{userId},#{content})
-	</insert> -->
-	
-	<!-- <select id="getComments" parameterType="int" resultType="Comment">
-		select * from comment where writingIdx =#{writingIdx}
-	</select>
+	<insert id="insert" parameterType="Comment">
+		insert into comment (userId,content)
+		values(#{userId},#{content})
+	</insert>
 	
 	<delete id="delete" parameterType="int">
 		delete from comment where idx = #{idx}
-	</delete> -->
-
-	<insert id="insert" parameterType="KkakdugiMarket">
-		insert into writing (categoryIdx,userId,subject,content)
-		values(#{categoryIdx},#{userId},#{subject},#{content})
-	</insert>
+	</delete>
+	
+	<select id="getList" parameterType="int" resultType="Comment">
+		select * from comment where writingIdx =#{writingIdx}
+	</select>
 	
 	<insert id="gallery" parameterType="Gallery">
 		insert into gallery (title,filename) values(#{title},#{filename})
 	</insert>
-
+	
+	<select id="selectById" resultType="Comment" parameterType="String">
+		select * from comment where userId=#{userId}
+	</select>
+	
+	<update id="updateCountAll" parameterType="int">
+		update comment set commentCount=(
+		select count(*)from board_comment where writingIdx = #{writingIdx}) where idx =#{idx}
+	</update>
+	
+	<update id="updateCommentCnt" parameterType="int">
+		update writing set commentCount=commentCount+1 
+		where idx =#{idx}
+	</update>
 </mapper>

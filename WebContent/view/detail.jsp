@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +10,14 @@
 <title>글 상세보기</title>
 </head>
 <body>
-
+	<%@ include file="../header.jsp"%>
 <section>
 
 	<h3>글 목록</h3>
 	<hr>
 	<div style="width: 80%; margin: auto;max-width: 700px;">
 	<ul id="main">
+	
 		<li>
 			<ul class="row">
 				<li>제목</li>
@@ -46,8 +49,15 @@
 				</ul>
 	</ul>
 	<div style="text-align: center;margin-bottom: 10px;">
-		<a class="button" onclick="deleteSet()">삭제</a>
+	
+	
+		
+		<a class="button" onclick="Jjim()">찜하기</a>
+	
 		<a class="button" href="list.do?page=${page}">목록</a>
+		<c:if test="${bean.userId == SessionScope.user.id">
+		<a class="button" onclick="deleteSet()">삭제</a>
+		</c:if>
 	</div>
 	<!-- 메인글 끝 -->
 	<!-- 댓글 시작 -->
@@ -64,7 +74,7 @@
 			<li>
 				<ul class="row">
 					<li>작성자</li>
-					<li><input type="text" name="name" class="input" value="${sessionScope.userId}"></li>
+					<li><input type="text" name="name" class="input" value="${sessionScope.user.id}"></li>
 				</ul>
 			</li>
 			<li>
@@ -95,8 +105,8 @@
 			</ul>
 		</form>
 </div>
-	<!-- 댓글 작성자만 수정, 삭제가 가능하도록 -->
-	<c:if test="${cmt.userId == sessionScope.userId}">
+	
+	<c:if test="${cmt.userId == SessionScope.user.id}">
 		<a href="#">수정</a>
 		<a href="javascript:deleteCmt('${cmt.idx }','${bean.idx }','${page }')">삭제</a>
 	</c:if>
@@ -104,9 +114,20 @@
 
 <script type="text/javascript">
 
+
 function deleteSet(){
-	document.getElementById('myModal').style.display='block';		
+	const yn = confirm('글을 삭제하시겠습니까?');
+	if(yn==1){
+		location.href= "DeleteAction.del?num=${writingIdx}";
+	}else{
+		alert('글 삭제가 취소되었습니다.')
+	}
 }
+
+function Jjim(){
+	
+}
+
 
 // 댓글 삭제
 function deleteCmt(cmtidx,idx,page){
@@ -119,7 +140,6 @@ function deleteCmt(cmtidx,idx,page){
 		}
 	}
 </script>
-
-
+<%@ include file="../bottom.jsp" %>
 </body>
 </html>

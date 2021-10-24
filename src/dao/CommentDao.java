@@ -18,14 +18,14 @@ public class CommentDao {
 		return dao;
 	}
 	//getList
-	public List<Comment> getList(int idx){   
-							//key(변수명처럼 이해) String, value  는 int
-		List<Comment> list = null;
-		SqlSession mapper = factory.openSession();
-		list = mapper.selectList("getList",idx);
-		mapper.close();
-		return list;
-	}
+		public List<Comment> getList(int idx){   
+								//key(변수명처럼 이해) String, value  는 int
+			List<Comment> list = null;
+			SqlSession mapper = factory.openSession();
+			list = mapper.selectList("getList",idx);
+			mapper.close();
+			return list;
+		}
 	
 	public List<Comment> selectById(String userId) {
 		List<Comment> list = null;
@@ -65,9 +65,9 @@ public class CommentDao {
 		mapper.close();
 	}
 	
-	public int delete(Map<String,Object> map) {
+	public int delete(int idx) {
 		SqlSession mapper = factory.openSession();
-		int n = mapper.delete("freeboard.delete",map);
+		int n = mapper.delete("freeboard.delete",idx);
 		mapper.commit();
 		mapper.close();
 		return n;
@@ -87,17 +87,20 @@ public class CommentDao {
 		mapper.close();
 	}
 	
-	public void updateCommentCnt(int idx) {
-		SqlSession mapper = factory.openSession();
-		mapper.update("updateCommentCnt",idx);
-		mapper.commit();
-		mapper.close();
-	}
 	public void updateCountAll(int idx) {
 		SqlSession mapper = factory.openSession();
 		mapper.update("updateCountAll",idx);
 		mapper.commit();
 		mapper.close();
 	}
+
+		public void updateCommentCnt(int idx) {
+			SqlSession mapper = factory.openSession();
+			mapper.update("updateCommentCnt",idx);
+			mapper.commit();
+			mapper.close();
+		}
+		
+		
 	
 }
