@@ -53,4 +53,3 @@ public class KakaoLoginAction implements Action {
 		return forward;
 	}
 }
-

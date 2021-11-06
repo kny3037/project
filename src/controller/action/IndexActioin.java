@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.JjimDao;
 import dao.WritingDao;
-import dto.Jjim;
 import dto.SessionDto;
 import dto.Writing;
 
@@ -26,18 +24,22 @@ public class IndexActioin implements Action {
 
 		HttpSession session = request.getSession();
 		SessionDto user = (SessionDto) session.getAttribute("user");
+		WritingDao wdao = WritingDao.getInstance();
 
+		// 인기글(hotList) 전달
+		int count = 10;	// 보여줄 리스트 개수(최상위부터 ~ count개 까지 보여줌)
+		List<Writing> hotList = wdao.getHotList(count);
+		request.setAttribute("hotList", hotList);
+		
 		// 로그인이 되어 session이 not null 일때만 작용
 		if (user != null) {
 			String userId = user.getId();
-			JjimDao jjimDao = JjimDao.getInstance();
-			WritingDao wdao = WritingDao.getInstance();
 
 			// 찜 리스트 전달 로직
-			List<Jjim> jjimList = jjimDao.selectById(userId);
+			List<Writing> jjimList = wdao.selectJjimById(userId);
 			List<Writing> jjimWritingList = new ArrayList<Writing>();
-			for (Jjim jList : jjimList) {
-				int idx = jList.getWritingIdx();
+			for (Writing jList : jjimList) {
+				int idx = jList.getIdx();
 				jjimWritingList.add(wdao.selectByIdx(idx));
 			}
 

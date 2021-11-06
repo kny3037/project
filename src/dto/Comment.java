@@ -13,5 +13,6 @@ public class Comment {
 	private int writingIdx;
 	private String userId; 
 	private String content;
+	private short pro;
 	
-}
+	}

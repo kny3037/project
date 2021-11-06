@@ -5,6 +5,11 @@
 <!-- sql mapper -->
 <mapper namespace="writing"> <!-- namespace : 일종의 식별역할의 변수 -->
 
+	<select id="selectAll" resultType="Writing" parameterType="java.util.Map">
+		select * from writing where categoryIdx != 'help' 
+			order by idx desc limit #{startNo}, #{pageSize}
+	</select>
+	
 	<select id="selectById" resultType="Writing"
 		parameterType="String">
 		select * from writing where userId = #{userId}
@@ -16,8 +21,7 @@
 		from writing w left join category c on w.categoryIdx = c.idx where w.idx = #{idx}
 	</select>
 
-	<select id="selectByCategoryIdx" resultType="Writing"
-		parameterType="java.util.Map">
+	<select id="selectByCategoryIdx" resultType="Writing" parameterType="java.util.Map">
 		select w.idx, userId, subject, content, w.categoryIdx,
 		c.name, w.wdate
 		from writing w join category c on w.categoryIdx = c.idx
@@ -51,6 +55,10 @@
 	<select id="getCount" resultType="int">
 		select count(*) from writing
 	</select>
+	
+	<select id="getCountByCategory" resultType="int" parameterType="String">
+		select count(*) from writing where categoryIdx = #{idx}
+	</select>
 
 	<select id="searchByContent" resultType="Writing"
 		parameterType="String">
@@ -72,18 +80,22 @@
 		select * from jjim j right join writing w on j.idx =
 		w.idx where j.userId = #{userId}
 	</select>
+	
+	<select id="getHotList" resultType="Writing" parameterType="int">
+		select * from writing order by readCount desc limit #{count}
+	</select>
+	
+	<update id="readCount" parameterType="int">
+		update writing set readCount = readCount + 1 where idx = #{idx}
+	</update>
 
-	<insert id="insert" parameterType="Writing">
-		insert into
-		writing(categoryIdx, userId, subject, content)
-		values (#{categoryIdx},
-		#{userId}, #{subject}, #{content})
+	<insert id="insert" parameterType="Writing" useGeneratedKeys="true" keyColumn="idx" keyProperty="idx">
+		insert into writing(categoryIdx, userId, subject, content)
+			values (#{categoryIdx}, #{userId}, #{subject}, #{content})
 	</insert>
-
-	<delete id="delete" parameterType="java.util.Map">
-		delete from writing where idx=#{idx}
+	
+	<delete id="delete" parameterType="int">
+		delete from writing where idx = #{idx}
 	</delete>
-	
-	
 
 </mapper>

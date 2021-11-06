@@ -2,8 +2,6 @@ package controller.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,19 +21,18 @@ public class DeleteAction implements Action{
 		
 		int idx = Integer.parseInt(request.getParameter("idx"));
 		int pageNo = Integer.parseInt(request.getParameter("page"));
+		String categoryIdx = request.getParameter("cate");
 		
 		WritingDao dao = WritingDao.getInstance();
-		Map<String,Object> map = new HashMap<>();
-		map.put("idx", idx);
 		
-		int n = dao.delete(map);
+		int n = dao.delete(idx);
 
 		out.print("<script>");
 		String message=null;
 		String href=null;
 		if(n==1){  
 			message ="글 삭제가 완료되었습니다.";
-			href="list.do?page="+pageNo;
+			href="category.do?cate="+categoryIdx+"&page="+pageNo;
 		}
 		out.print("alert('"+message+"');");
 		out.print("location.href='"+href+"';");

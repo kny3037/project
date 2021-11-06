@@ -57,5 +57,30 @@ public class UsersDao {
 		return result;
 	}
 	
+	// 유저 전문가 번호 가져오기
+	public Users proIdxInfo(String userId) {
+		Users dto = new Users();
+		SqlSession mapper = sqlFactory.openSession();
+		dto = mapper.selectOne("users.proIdxInfo", userId);
+		mapper.close();
+		return dto;
+	}
 	
+	// 아이디 찾기
+	public String findId(Map<String, String> map) { 
+		SqlSession mapper = sqlFactory.openSession();
+		String id = mapper.selectOne("users.findId", map);
+		mapper.commit();
+		mapper.close();
+		return id;
+	}
+	
+	// 비밀번호 찾기
+	public String findPw(Map<String, String> map) { 
+		SqlSession mapper = sqlFactory.openSession();
+		String pw = mapper.selectOne("users.findPw", map);
+		mapper.commit();
+		mapper.close();
+		return pw;
+	}
 }

@@ -13,11 +13,9 @@ table {
 	margin: auto;
 	border-collapse: collapse;
 }
-
 .list td:last-child {
 	width: 30%
 }
-
 .list td:first-child {
 	width: 10%;
 }
@@ -42,7 +40,12 @@ a {
 	<!-- 본문 content -->
 	<section class="main">
 		<div style='flex-basis: 80%; margin: auto;'>
-			<h3>${list[0].name}분야의 글 목록</h3>
+		<c:if test="${list[0].name != null}">
+			<h3>${list[0].name} 분야의 글 목록</h3>
+		</c:if>
+		<c:if test="${list[0].name == null}">
+			<h3>전체 글 목록</h3>
+		</c:if>
 
 			<table class="list">
 				<tr>
@@ -55,11 +58,11 @@ a {
 				<c:forEach var="vo" items="${list}">
 					<c:set var="content" value='${vo.content}'></c:set>
 					<tr>
-						<td><a href="#">${vo.idx}</a></td>
-						<td><a href="#">${vo.subject}</a></td>
-						<td><a href="#">${fn:substring(content,0,10)}...</a></td>
-						<td><a href="#">${vo.userId}</a></td>
-						<td><a href="#">${vo.wdate}</a></td>
+						<td>${vo.idx}</td>
+						<td><a href="detail.do?idx=${vo.idx}&page=1">${vo.subject}</a></td>
+						<td>${fn:substring(content,0,10)}...</td>
+						<td>${vo.userId}</td>
+						<td>${vo.wdate}</td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -70,18 +73,18 @@ a {
 				<hr>
 				<!-- 요청 url은 현재와 같고 parameter만 변경 -->
 				<c:if test="${pageDto.startPage != 1 }">
-					<a class="pagenum" href="?cate=${list[0].categoryIdx}&page=1">⏪</a>
-					<a class="pagenum" href="?cate=${list[0].categoryIdx}&page=${pageDto.startPage-1}">◀</a>
+					<a class="pagenum" href="?cate=${categoryIdx}&page=1">⏪</a>
+					<a class="pagenum" href="?cate=${categoryIdx}&page=${pageDto.startPage-1}">◀</a>
 					<!-- 현재 페이지 10페이지 앞 -->
 				</c:if>
-				<c:forEach var="i" begin="${pageDto.startPage }" end="${pageDto.endPage }">
+				<c:forEach var="i" begin="${pageDto.startPage }" end="${pageDto.endPage - 1}">
 					<a class="pagenum"
 						<c:if test = "${pageDto.currentPage == i}">current</c:if>
-						href="?cate=${list[0].categoryIdx}&page=${i}">${i}</a>
+						href="?cate=${categoryIdx}&page=${i}">${i}</a>
 				</c:forEach>
 				<c:if test="${pageDto.endPage != pageDto.totalPage}">
-					<a class="pagenum" href="?cate=${list[0].categoryIdx}&page=${pageDto.endPage+1}">▶</a>
-					<a class="pagenum" href="?cate=${list[0].categoryIdx}&page=${pageDto.totalPage}">⏩</a>
+					<a class="pagenum" href="?cate=${categoryIdx}&page=${pageDto.endPage+1}">▶</a>
+					<a class="pagenum" href="?cate=${categoryIdx}&page=${pageDto.totalPage}">⏩</a>
 				</c:if>
 			</div>
 		</div>
